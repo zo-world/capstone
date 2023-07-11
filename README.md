@@ -1,1 +1,3 @@
-# capstone
+# Capstone
+
+# React/Solidity
