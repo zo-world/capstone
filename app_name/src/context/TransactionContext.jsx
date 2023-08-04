@@ -112,7 +112,6 @@ export const TransactionProvider = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
 
-      //get the data from the form...
       const { addressTo, amount, keyword, message } = formData;
       const provider = new ethers.BrowserProvider(ethereum);
       const signer = provider.getSigner();
