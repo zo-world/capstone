@@ -1,5 +1,5 @@
 const main = async () => {
-  const Transactions = await ethers.getContractFactory("Transactions");
+  const Transactions = await hre.ethers.getContractFactory("Transactions");
   const transactions = await Transactions.deploy();
 
   const address = await transactions.getAddress();
