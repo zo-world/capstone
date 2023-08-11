@@ -79,7 +79,7 @@ export const TransactionProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
 
-      throw new Error("Failed to connect to MetaMask.");
+      throw new Error("No ethereum object");
     }
   };
 

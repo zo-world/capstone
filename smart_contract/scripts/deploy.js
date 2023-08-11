@@ -2,8 +2,9 @@ const main = async () => {
   const Transactions = await hre.ethers.getContractFactory("Transactions");
   const transactions = await Transactions.deploy();
 
-  const address = await transactions.getAddress();
-  console.log("Transactions deployed to: ", address);
+  await transactions.deployed();
+
+  console.log("Transactions deployed to: ", transactions.address);
 };
 
 const runMain = async () => {
