@@ -116,7 +116,7 @@ export const TransactionProvider = ({ children }) => {
       const provider = new ethers.BrowserProvider(ethereum);
       const signer = provider.getSigner();
       const transactionContract = getEthereumContract(signer);
-      const parsedAmount = ethers.parseEther(amount);
+      const parsedAmount = ethers.utils.parseEther(amount);
 
       await ethereum.request({
         method: "eth_sendTransaction",
