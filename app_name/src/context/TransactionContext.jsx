@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../utils/constants";
 
@@ -117,7 +118,7 @@ export const TransactionProvider = ({ children }) => {
       const { addressTo, amount, keyword, message } = formData;
 
       const parsedAmount = ethers.parseEther(amount);
-      
+
       await ethereum.request({
         method: "eth_sendTransaction",
         params: [
