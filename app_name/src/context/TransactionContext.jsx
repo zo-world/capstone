@@ -1,23 +1,24 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-
 import { contractABI, contractAddress } from "../utils/constants";
 
 export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
-const getEthereumContract = (signer) => {
-  const transactionContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
-    signer
-  );
-
-  return transactionContract;
-};
-
 export const TransactionProvider = ({ children }) => {
+  // Make this function async and make the signer await to remove unsupported operation error
+  const getEthereumContract = async () => {
+    const provider = new ethers.BrowserProvider(ethereum); // read only
+    const signer = await provider.getSigner(); // Write ability
+    const transactionContract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      signer
+    );
+    return transactionContract;
+  };
+
   const [currentAccount, setCurrentAccount] = useState("");
   const [formData, setFormData] = useState({
     addressTo: "",
@@ -35,29 +36,28 @@ export const TransactionProvider = ({ children }) => {
     setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
-  const getAllTransactions = async () => {
+  const getTransactions = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
-      const transactionContract = getEthereumContract();
+      // Must be await, if not, getAllTransactions() will try to run and it wont find it because the contract data won't be loaded up yet
+      const transactionContract = await getEthereumContract();
 
       const availableTransactions =
         await transactionContract.getAllTransactions();
-
+      // Previously: timestamp.toNumber() would fail due to being the input being too big of a number (10,00,000,000,000,000n) > 900,719,925,470,991(MAX_SAFE_INTEGER)
+      // Previously: amount._hex. Will faill due to ethers v6 vs. v5
       const structuredTransactions = availableTransactions.map(
         (transaction) => ({
           addressTo: transaction.receiver,
           addressFrom: transaction.sender,
-          timestamp: new Date(
-            transaction.timestamp.toNumber() * 1000
-          ).toLocaleString(),
+          timestamp: (new Date(Number(transaction.timestamp) * 1000)).toLocaleString(),
           message: transaction.message,
           keyword: transaction.keyword,
-          amount: parseInt(transaction.amount._hex) / 10 ** 18,
+          amount: (parseInt(transaction.amount)) / 10 ** 18,
         })
       );
-
-      console.log(structuredTransactions);
-      structuredTransactions(structuredTransactions);
+      // Previously: structuredTransactions(structuredTransctions), wrong
+      setTransactions(structuredTransactions);
     } catch (error) {
       console.log(error);
     }
@@ -67,12 +67,13 @@ export const TransactionProvider = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
 
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
+      const accounts = await ethereum.request({
+        method: "eth_accounts"
+      });
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
 
-        getAllTransactions();
+        getTransactions();
       } else {
         console.log("No accounts found");
       }
@@ -85,11 +86,11 @@ export const TransactionProvider = ({ children }) => {
 
   const checkIfTransactionsExist = async () => {
     try {
-      const transactionContract = getEthereumContract(signer);
-      const newTransactionCount =
-        await transactionContract.getTransactionCount();
-      window.localStorage.setItem("newTransactionCount", newTransactionCount);
-    } catch (error) {}
+      const transactionContract = await getEthereumContract();
+      // Previously newTransactionCount, incorrect name of state.
+      const transactionCount = await transactionContract.getTransactionCount();
+      window.localStorage.setItem("transactionCount", transactionCount);
+    } catch (error) { }
   };
 
   const connectWallet = async () => {
@@ -112,42 +113,39 @@ export const TransactionProvider = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
 
+      const transactionContract = await getEthereumContract();
       const { addressTo, amount, keyword, message } = formData;
-      const provider = new ethers.BrowserProvider(ethereum);
-      const signer = provider.getSigner();
-      const transactionContract = getEthereumContract(signer);
-      const parsedAmount = ethers.utils.parseEther(amount);
 
+      const parsedAmount = ethers.parseEther(amount);
+      
       await ethereum.request({
         method: "eth_sendTransaction",
         params: [
           {
             from: currentAccount,
             to: addressTo,
-            gas: "0x5208", //21000 GWEI
-            value: parsedAmount.toString(16), //0.00001
+            gas: "0x5208",
+            value: parsedAmount.toString(16),
           },
         ],
       });
-
       const transactionHash = await transactionContract.addToBlockchain(
         addressTo,
         parsedAmount,
         message,
         keyword
       );
-
       setIsLoading(true);
       console.log(`Loading - ${transactionHash.hash}`);
       await transactionHash.wait();
       setIsLoading(false);
       console.log(`Success - ${transactionHash.hash}`);
 
-      const newTransactionCount =
-        await transactionContract.getTransactionCount();
-      setTransactionCount(newTransactionCount.toNumber());
-
-      window.reload();
+      const transactionCount = await transactionContract.getTransactionCount();
+      // transactionCount comes in as bigInt, convert to int
+      setTransactionCount(Number(transactionCount));
+      // No window.reload() method
+      location.reload();
     } catch (error) {
       console.log(error);
 
