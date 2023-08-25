@@ -28,6 +28,7 @@ const Services = () => {
           </h1>
         </div>
       </div>
+      
       <div className="flex flex-col items-center justify-start flex-1">
         <ServiceCard
           color="bg-[#2952E3]"
