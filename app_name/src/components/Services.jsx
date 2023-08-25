@@ -21,10 +21,10 @@ const Services = () => {
     <div className="flex flex-col md:flex-row w-full justify-center items-center gradient-bg-services">
       <div className="flex mf:flex-row flex-col items-center justify-between md:p-20 py-12 px-4">
         <div className="flex-1 flex flex-col justify-start items-start">
-          <h1 className="text-white text-3xl sm:test-5xl py-2 text-gradient">
-            Services that we
+          <h1 className="text-white text-3xl sm:test-5xl py-2">
+            We wrap our arms around
             <br />
-            continue to improve
+            maintaining premium quality!
           </h1>
         </div>
       </div>
@@ -33,19 +33,25 @@ const Services = () => {
           color="bg-[#2952E3]"
           title="Security guaranteed"
           icon={<BsShieldFillCheck fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Your security is our top priority. Benefit from cutting-edge encryption, multi-factor 
+          authentication, and biometric login options that safeguard your assets and personal 
+          information, offering you peace of mind while trading."
         />
         <ServiceCard
           color="bg-[#8945F8]"
-          title="Best exchange rates"
+          title="Real-time market insights"
           icon={<BiSearchAlt fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Stay ahead with real-time market data, interactive charts, and personalized alerts. 
+          Our app equips you with the information you need to make informed trading decisions, enhancing 
+          your chances of success."
         />
         <ServiceCard
           color="bg-[#F84550]"
-          title="Fastest transactions"
+          title="Stellar customer support"
           icon={<RiHeart2Fill fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Join a community of traders who are supported by our responsive and knowledgeable 
+          customer support team. We're here to assist you every step of the way, ensuring that your 
+          experience with our app remains smooth and enjoyable."
         />
       </div>
     </div>
