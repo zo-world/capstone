@@ -18,34 +18,41 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
 
 const Services = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full md:flex-row gradient-bg-services">
-      <div className="flex flex-col items-center justify-between px-4 py-12 mf:flex-row md:p-20">
-        <div className="flex flex-col items-start justify-start flex-1">
-          <h1 className="py-2 text-3xl text-white sm:text-5xl text-gradient">
-            Services that we
+    <div className="flex flex-col md:flex-row w-full justify-center items-center gradient-bg-services">
+      <div className="flex mf:flex-row flex-col items-center justify-between md:p-20 py-12 px-4">
+        <div className="flex-1 flex flex-col justify-start items-start">
+          <h1 className="text-white text-3xl sm:test-5xl py-2">
+            We wrap our arms around
             <br />
-            continue to improve
+            maintaining premium quality!
           </h1>
         </div>
       </div>
+      
       <div className="flex flex-col items-center justify-start flex-1">
         <ServiceCard
           color="bg-[#2952E3]"
           title="Security guaranteed"
           icon={<BsShieldFillCheck fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Your security is our top priority. Benefit from cutting-edge encryption, multi-factor 
+          authentication, and biometric login options that safeguard your assets and personal 
+          information, offering you peace of mind while trading."
         />
         <ServiceCard
           color="bg-[#8945F8]"
-          title="Best exchange rates"
+          title="Real-time market insights"
           icon={<BiSearchAlt fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Stay ahead with real-time market data, interactive charts, and personalized alerts. 
+          Our app equips you with the information you need to make informed trading decisions, enhancing 
+          your chances of success."
         />
         <ServiceCard
           color="bg-[#F84550]"
-          title="Fastest transactions"
+          title="Stellar customer support"
           icon={<RiHeart2Fill fontSize={21} className="text-white" />}
-          subtitle="Security is guaranteed. We always maintain privacy and maintain the quality of our products."
+          subtitle="Join a community of traders who are supported by our responsive and knowledgeable 
+          customer support team. We're here to assist you every step of the way, ensuring that your 
+          experience with our app remains smooth and enjoyable."
         />
       </div>
     </div>

@@ -43,18 +43,18 @@ const Welcome = () => {
     <div className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start flex-col mf:mr-10">
-          <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-            Send Crypto <br /> across the world
+          <h1 className="text-3xl sm:text-5xl text-white py-1">
+            Send KryptoKraken <br /> across the Seven Seas!
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12  text-base">
-            Explore the crypto world. Buy and sell cryptocurrencies easily on
-            Krypto.
+            Explore the depths of the krypto world. Buy and sell kryptocurrencies easily on
+            KryptoKraken.
           </p>
           {!currentAccount && (
             <button
               type="button"
               onClick={connectWallet}
-              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg=[#2546bd]"
+              className="flex flex-row justify-center items-center my-5 bg-[#24a0ed] p-3 rounded-full cursor-pointer hover:bg=[#2546bd]"
             >
               <p className="text-white text-base font-semibold">
                 Connect Wallet
@@ -65,7 +65,7 @@ const Welcome = () => {
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
             <div className={commonStyles}>Security</div>
-            <div className={`rounded-tr-2xl ${commonStyles}`}>Ethererum</div>
+            <div className={`rounded-tr-2xl ${commonStyles}`}>Ethereum</div>
             <div className={`rounded-bl-2xl ${commonStyles}`}>Web 3.0</div>
             <div className={commonStyles}>Low fees</div>
             <div className={`rounded-br-2xl ${commonStyles}`}>Blockchain</div>
@@ -123,7 +123,7 @@ const Welcome = () => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer"
+                className="text-white w-full mt-2 border-[1px] p-2 border-[#24a0ed] rounded-full cursor-pointer"
               >
                 Send Now
               </button>
