@@ -27,7 +27,7 @@ const TransactionCard = ({
       <div className="flex flex-col items-center w-full md-3">
         <div className="w-full mb-6 p-2">
           <a
-            href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+            href={`https://sepolia.etherscan.io/address/${addressFrom}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -36,7 +36,7 @@ const TransactionCard = ({
             </p>
           </a>
           <a
-            href={`https://ropsten.etherscan.io/address/${addressTo}`}
+            href={`https://sepolia.etherscan.io/address/${addressTo}`}
             target="_blank"
             rel="noopener noreferrer"
           >
