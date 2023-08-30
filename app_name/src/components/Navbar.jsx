@@ -5,17 +5,17 @@ import { useState } from "react";
 import logo from "../../images/kraken.png";
 
 const NavbarItem = ({ title, classProps }) => {
-  return <li className={`mx-4 cursor-pointer ${classProps}`}>{title}</li>;
+  return <li className={`mx-10 cursor-pointer ${classProps}`}>{title}</li>;
 };
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   return (
-    <nav className="w-full flex md:justify-center justify-between items-center p-4">
-      <div className="md:flex-[0.5] flex-initial justify-center items-center">
+    <nav className="w-full flex md:justify-center justify-between items-center p-6">
+      <div className="md:flex-[0.6] flex-initial justify-center items-center">
         <img src={logo} alt="kraken" className="w-64 cursor-pointer" />
       </div>
-      <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
+      <ul className="text-white text-2xl md:flex hidden list-none flex-row justify-between items-center flex-initial">
         {["Market", "Tutorials"].map((item, index) => (
           <NavbarItem key={item + index} title={item} />
         ))}
