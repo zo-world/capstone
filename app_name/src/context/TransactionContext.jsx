@@ -45,18 +45,20 @@ export const TransactionProvider = ({ children }) => {
       const availableTransactions =
         await transactionContract.getAllTransactions();
       // Previously: timestamp.toNumber() would fail due to being the input being too big of a number (10,00,000,000,000,000n) > 900,719,925,470,991(MAX_SAFE_INTEGER)
-      // Previously: amount._hex. Will faill due to ethers v6 vs. v5
+      // Previously: amount._hex. Will fail due to ethers v6 vs. v5
       const structuredTransactions = availableTransactions.map(
         (transaction) => ({
           addressTo: transaction.receiver,
           addressFrom: transaction.sender,
-          timestamp: (new Date(Number(transaction.timestamp) * 1000)).toLocaleString(),
+          timestamp: new Date(
+            Number(transaction.timestamp) * 1000
+          ).toLocaleString(),
           message: transaction.message,
           keyword: transaction.keyword,
-          amount: (parseInt(transaction.amount)) / 10 ** 18,
+          amount: parseInt(transaction.amount) / 10 ** 18,
         })
       );
-      // Previously: structuredTransactions(structuredTransctions), wrong
+      // Previously: structuredTransactions(structuredTransactions), wrong
       setTransactions(structuredTransactions);
     } catch (error) {
       console.log(error);
